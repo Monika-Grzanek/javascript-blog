@@ -58,7 +58,7 @@
         for(let article of articles){
             console.log(articles);
         /* get the article id */
-            const articleId = optArticleSelector.getAttribute('id');
+            const articleId = article.getAttribute('id');
             console.log('Id downloaded', articleId);
         /* find the title element */
             const articleTitle = article.querySelector(optTitleSelector).innerHTML;
@@ -72,6 +72,7 @@
             // console.log('Links:', linkHTML);
             html = html + linkHTML;
         }
+        
         titleList.innerHTML = html;
         console.log('link', html);
     }
