@@ -4,6 +4,7 @@
 
 $color-light: #fff;
 $color-dark: #444;
+$color-gray: #d1d8e0;
 
 $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
@@ -22,6 +23,7 @@ body {
   font-weight: 300;
   font-size: 16px;
   line-height: 1.7;
+  background-color: $color-gray;
 }
 
 .container {
@@ -71,7 +73,9 @@ body {
   font-weight: 400;
   font-size: 104px;
   line-height: 1;
-  text-align: center;
+  text-align: right;
+  background-image: url('https://images.pexels.com/photos/733857/pexels-photo-733857.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  padding: 70px;
 }
 
 /* Lists */
@@ -116,5 +120,17 @@ body {
   display: flex;
   p {
     margin: 0 10px 0 0;
+  }
+}
+
+@media(max-width: 767px) {
+  .logo {
+    padding: 70px 278px;
+  }
+}
+
+@media(max-width: 767px) {
+  .logo {
+    padding: 70px 278px;
   }
 }
