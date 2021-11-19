@@ -155,19 +155,19 @@
         generateTitleLinks('[data-tags~="' + tag + '"]');
         console.log('generateTitleLinks:', generateTitleLinks); 
     }
-
-    tagClickHandler();
       
     function addClickListenersToTags(){
         /* find all links to tags */
-        const allLinksTag = document.querySelectorAll('a[href="' + href + '"]');
+        const allLinksTag = document.querySelectorAll('a[href^="#tag-"]');
         console.log('Show all links to tags:', allLinksTag);
         /* START LOOP: for each link */
-        for(let linkTag of allLinksTag){}
+        for(let linkTag of allLinksTag){
           /* add tagClickHandler as event listener for that link */
             linkTag.addEventListener('click', tagClickHandler);
         /* END LOOP: for each link */
+        }
     }
+
       
     addClickListenersToTags();
       
