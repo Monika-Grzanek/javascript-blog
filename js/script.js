@@ -8,7 +8,8 @@
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles',
-    optArticleTagsSelector = '.post-tags .list';
+    optArticleTagsSelector = '.post-tags .list',
+    optArticleAuthorSelector = '.post-author';
 
 
     const titleClickHandler = function(event){
@@ -92,9 +93,10 @@
             console.log('show tags wrapper:', tagsWrapper);
           /* make html variable with empty string */
             let html = '';
+            console.log('show html for tags:', html);
           /* get tags from data-tags attribute */
             const articleTags = article.getAttribute('data-tags');
-            console.log('data-tag attribute:', articleTags)
+            console.log('data-tag attribute:', articleTags);
           /* split tags into array */
             const articleTagsArray = articleTags.split(' ');
             console.log('Split tags into array:', articleTagsArray);
@@ -164,11 +166,27 @@
         for(let linkTag of allLinksTag){
           /* add tagClickHandler as event listener for that link */
             linkTag.addEventListener('click', tagClickHandler);
+            console.log('show linkTag:', linkTag);
         /* END LOOP: for each link */
         }
     }
 
-      
     addClickListenersToTags();
       
-    
+  function generateAuthors(){
+    const articles = document.querySelectorAll(optArticleSelector);
+    console.log('show articles:', articles);
+    for(let article of articles){
+      const authorWrapper = article.querySelector(optArticleAuthorSelector);
+      console.log('show authorWrapper:', authorWrapper);
+      let html = '';
+      const articleAuthors = article.getAttribute('data-author');
+      console.log('show attribute:', articleAuthors);
+      const authorLinkHTML = '<a href=#"' + articleAuthors + '">' + articleAuthors + '</a>';
+      console.log('show authorLinkHTML:', authorLinkHTML);
+      authorWrapper.innerHTML = html + authorLinkHTML;
+      console.log('show authorWrapper in HTML:', html);
+    }
+  }
+
+  generateAuthors();
