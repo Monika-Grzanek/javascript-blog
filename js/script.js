@@ -182,7 +182,7 @@
       let html = '';
       const articleAuthors = article.getAttribute('data-author');
       console.log('show attribute:', articleAuthors);
-      const authorLinkHTML = '<a href=#"' + articleAuthors + '">' + articleAuthors + '</a>';
+      const authorLinkHTML = '<a href=#author-"' + articleAuthors + '">' + articleAuthors + '</a>';
       console.log('show authorLinkHTML:', authorLinkHTML);
       authorWrapper.innerHTML = html + authorLinkHTML;
       console.log('show authorWrapper in HTML:', html);
@@ -190,3 +190,39 @@
   }
 
   generateAuthors();
+
+  const authorClickHandler = function(event) {
+    event.preventDefault();
+    console.log('show event:', event);
+    const clickedElement = this;
+    console.log('show clickedElement', clickedElement);
+    const href = clickedElement.getAttribute('href');
+    console.log('show href with attribute href:', href);
+    const author = href.replace('#author-', '');
+    console.log('show extract tag from href:', author);
+    const activeAuthorLinks = document.querySelectorAll('a.active[href^="#author-"]');
+    console.log('show activeLinks:', activeAuthorLinks);
+    for(let activeAuthorLink of activeAuthorLinks){
+      activeAuthorLink.classList.remove('active');
+      console.log('show remove active in activeAuthorLink', activeAuthorLinks);
+    }
+    const authorLinks = document.querySelectorAll('a[href="' + href + '"]');
+    console.log('show authorLinks:', authorLinks);
+    for(let authorLink of authorLinks){
+      clickedElement.classList.add('active');
+      console.log('Add active:', clickedElement);
+    }
+    generateTitleLinks('[data-author="' + author + '"]');
+    console.log('generateTitleLinks:', generateTitleLinks); 
+  }
+
+  function addClickListenersToAuthors() {
+    const allLinksAuthors = document.querySelectorAll('a[href^="#author-"]');
+    console.log('Show all links to auhors:', allLinksAuthors);
+    for(let linkAuthor of allLinksAuthors){
+      linkAuthor.addEventListener('click', authorClickHandler);
+      console.log('show linkAuthor:', linkAuthor);
+    }
+  }
+
+  addClickListenersToAuthors()
