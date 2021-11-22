@@ -84,8 +84,8 @@ function generateTitleLinks(customSelector = '') {
 generateTitleLinks();
 
 function generateTags() {
-  /* [NEW] create a new variable allTags with an empty array */
-  let allTags = [];
+  /* [NEW] create a new variable allTags with an empty object */
+  let allTags = {};
   /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
   console.log('all articles:', articles);
@@ -113,10 +113,11 @@ function generateTags() {
       html = html + linkHTML;
       console.log('show html:', html);
       /* [NEW] check if this link is NOT already in allTags */
-      if(allTags.indexOf(linkHTML) == -1){
-        /* [NEW] add generated code to allTags array */
-        allTags.push(linkHTML);
-        console.log('show allTags:', allTags);
+      if(!allTags[tag]) {
+        /* [NEW] add generated code to allTags object */
+        allTags[tag] = 1;
+      } else {
+        allTags[tag]++;
       }
       /* END LOOP: for each tag */
     }
@@ -129,8 +130,9 @@ function generateTags() {
   const tagList = document.querySelector('.tags');
   console.log('show tagList:', tagList);
   /* [NEW] add html from allTags to tagList */
-  tagList.innerHTML = allTags.join(' ');
-  console.log('show tagList inner HTML:', tagList);
+  //tagList.innerHTML = allTags.join(' ');
+  //console.log('show tagList inner HTML:', tagList);
+  console.log('show allTags:', allTags);
 }
 
 generateTags();
