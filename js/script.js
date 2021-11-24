@@ -10,10 +10,10 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post-author',
-  optTagsListSelector = '.tags .list',
+  optTagsListSelector = '.tags',
   optCloudClassCount = 5,
   optCloudClassPrefix = 'tag-size-',
-  optAuthorsListSelector = '.list .authors';
+  optAuthorsListSelector = '.authors';
 
 const titleClickHandler = function (event) {
   event.preventDefault();
@@ -157,7 +157,7 @@ function generateTags() {
     /* END LOOP: for every article: */
   }
   /* [NEW] find list of tags in right column */
-  const tagList = document.querySelector('.tags');
+  const tagList = document.querySelector(optTagsListSelector);
   console.log('show tagList:', tagList);
   const tagsParams = calculateTagsParams(allTags);
   console.log('tagsParams:', tagsParams);
@@ -231,6 +231,7 @@ function addClickListenersToTags() {
 addClickListenersToTags();
 
 function generateAuthors() {
+  let allAuthors = {};
   const articles = document.querySelectorAll(optArticleSelector);
   console.log('show articles:', articles);
   for (let article of articles) {
@@ -243,7 +244,26 @@ function generateAuthors() {
     console.log('show authorLinkHTML:', authorLinkHTML);
     authorWrapper.innerHTML = html + authorLinkHTML;
     console.log('show authorWrapper in HTML:', html);
+    if(!allAuthors[articleAuthors]) {
+      allAuthors[articleAuthors] = 1;
+    } else {
+      allAuthors[articleAuthors]++;
+    }
+    console.log('show allAuthors:', allAuthors);
   }
+  const authorList = document.querySelector(optAuthorsListSelector);
+  console.log('show authorList', authorList);
+  //const authorsParams = calculateAuthorsParams(allAuthors);
+  //console.log('authorsParams:', authorsParams);
+  let allAuthorsHTML = '';
+  for(let author in allAuthors){
+    const authorLinkHTML = '<li><a href ="#author-' + author + '">' + author + ' (' + allAuthors + ')</a></li>';
+    console.log('show authorLinkHTML:', authorLinkHTML);
+    allAuthorsHTML += authorLinkHTML;
+    console.log('show allAuthorsHTML:', authorLinkHTML);
+  }
+  authorList.innerHTML = allAuthorsHTML;
+  console.log('show authorList.innerHTML:', allAuthorsHTML);
 }
 
 generateAuthors();
