@@ -230,8 +230,25 @@ function addClickListenersToTags() {
 
 addClickListenersToTags();
 
+function calculateAuthorsParams(authors) {
+  const params = {min: '999999', max: '0'};
+  for(let author in authors){
+    console.log(author + ' is used ' + authors[author] + ' times');
+    if(authors[author] < params.min){
+      params.min = authors[author];
+      console.log('show params.min:', params.min);
+    }
+    if(authors[author] > params.max){
+      params.max = authors[author];
+      console.log('show params.max:', params.max);
+    }
+  }
+  return params;
+}
+
 function generateAuthors() {
   let allAuthors = {};
+  console.log('show allAuthors:', allAuthors);
   const articles = document.querySelectorAll(optArticleSelector);
   console.log('show articles:', articles);
   for (let article of articles) {
@@ -240,9 +257,9 @@ function generateAuthors() {
     let html = '';
     const articleAuthors = article.getAttribute('data-author');
     console.log('show attribute:', articleAuthors);
-    const authorLinkHTML = '<a href="#author-' + articleAuthors + '">' + articleAuthors + '</a>';
-    console.log('show authorLinkHTML:', authorLinkHTML);
-    authorWrapper.innerHTML = html + authorLinkHTML;
+    const authorlinkHTML = '<a href="#author-' + articleAuthors + '">' + articleAuthors + '</a>';
+    console.log('show authorLinkHTML:', authorlinkHTML);
+    html = html + authorlinkHTML;
     console.log('show authorWrapper in HTML:', html);
     if(!allAuthors[articleAuthors]) {
       allAuthors[articleAuthors] = 1;
@@ -250,6 +267,7 @@ function generateAuthors() {
       allAuthors[articleAuthors]++;
     }
     console.log('show allAuthors:', allAuthors);
+    authorWrapper.innerHTML = html;
   }
   const authorList = document.querySelector(optAuthorsListSelector);
   console.log('show authorList', authorList);
@@ -257,10 +275,10 @@ function generateAuthors() {
   //console.log('authorsParams:', authorsParams);
   let allAuthorsHTML = '';
   for(let author in allAuthors){
-    const authorLinkHTML = '<li><a href ="#author-' + author + '">' + author + ' (' + allAuthors + ')</a></li>';
-    console.log('show authorLinkHTML:', authorLinkHTML);
-    allAuthorsHTML += authorLinkHTML;
-    console.log('show allAuthorsHTML:', authorLinkHTML);
+    const linkHTML = '<li><a href ="#author-' + author + '">' + author + ' (' + allAuthors[author] + ')</a></li>';
+    console.log('show authorLinkHTML:', linkHTML);
+    allAuthorsHTML += linkHTML;
+    console.log('show allAuthorsHTML:', linkHTML);
   }
   authorList.innerHTML = allAuthorsHTML;
   console.log('show authorList.innerHTML:', allAuthorsHTML);
